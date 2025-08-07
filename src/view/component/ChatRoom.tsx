@@ -22,7 +22,7 @@ const ChatRoom: React.FC = () => {
 
   const fetchChatMessages = async (page: number, pageSize: number, friendId: string) => {
     const chatMessages: ChatMessageDTO[] = await fetchChatMessageList(page, pageSize, friendId);
-    setChatMessages([]);
+    if (page === 0 && pageSize === 9999) setChatMessages([]);
     setChatMessages((prevMessages) => [...prevMessages, ...chatMessages]);
   };
 
