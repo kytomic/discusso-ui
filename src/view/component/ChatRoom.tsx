@@ -22,12 +22,12 @@ const ChatRoom: React.FC = () => {
 
   const fetchChatMessages = async (page: number, pageSize: number, friendId: string) => {
     const chatMessages: ChatMessageDTO[] = await fetchChatMessageList(page, pageSize, friendId);
+    setChatMessages([]);
     setChatMessages((prevMessages) => [...prevMessages, ...chatMessages]);
   };
 
   useEffect(() => {
     if (chatRoom) {
-      setChatMessages([]);
       fetchChatMessages(0, 9999, chatRoom.friendId);
     }
   }, [chatRoom, dispatch]);

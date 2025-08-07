@@ -10,6 +10,7 @@ const userSlice = createSlice({
     setUserInfo: (state, action) => {
       state.userId = action.payload.userId;
       state.username = action.payload.username;
+      console.log('User id set:', action.payload.userId);
 
       localStorage.setItem('userId', action.payload.userId);
       localStorage.setItem('username', action.payload.username);
