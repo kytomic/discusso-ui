@@ -16,11 +16,8 @@ import { fetchLatestChatMessageList } from "../../controller/chatMessage/chatMes
 import { LatestChatMessageDTO } from "../../model/dto/LatestChatMessage.dto";
 import LatestChatMessageItem from "./item/LatestChatRecordItem";
 import { fetchFriendRelationWithNoMessages } from "../../controller/friend/friend";
-import { set } from "react-hook-form";
-import { useSelector } from "react-redux";
 
 const LatestChatList = () => {
-  const user = useSelector((state: any) => state.user);
   let [search, setSearch] = useState<string>("");
   let [clickedId, setClickedId] = useState<string>("");
   let [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
@@ -152,7 +149,7 @@ const LatestChatList = () => {
           {latestChatMessages?.length > 0 ? (
             latestChatMessages.map((chatMessage) => (
               <LatestChatMessageItem
-                key={chatMessage.senderId}
+                key={chatMessage.senderId + Math.random().toString(36).substring(2, 15)}
                 latestChatMessage={chatMessage}
                 isClicked={clickedId === chatMessage.id}
                 onClickedMessageId={(id: string) => {

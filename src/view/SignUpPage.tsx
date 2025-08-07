@@ -113,6 +113,7 @@ const SignUpPage: React.FC = () => {
               />
               <TextField
                 label="Password"
+                type="password"
                 variant="outlined"
                 sx={{ width: '350px' }}
                 size="medium"
@@ -121,6 +122,7 @@ const SignUpPage: React.FC = () => {
               />
               <TextField
                 label="Confirm Password"
+                type="password"
                 variant="outlined"
                 sx={{ width: '350px' }}
                 size="medium"

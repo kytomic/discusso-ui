@@ -6,12 +6,14 @@ import { ChatMessageDTO } from '../../model/dto/ChatMessage.dto';
 import ChatMessageBox from './ChatMessageBox';
 import { Client } from '@stomp/stompjs';
 import { fetchChatMessageList } from '../../controller/chatMessage/chatMessage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ChatRoom: React.FC = () => {
   let [chatMessages, setChatMessages] = useState<ChatMessageDTO[]>([]);
   const stompClientRef = useRef<any>(null);
   const chatRoom = useSelector((state: any) => state.chatRoom);
+  const user = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
 
   let [friendId, setFriendId] = useState<string>('');
   let [friendName, setFriendName] = useState<string>('');
@@ -22,6 +24,13 @@ const ChatRoom: React.FC = () => {
     const chatMessages: ChatMessageDTO[] = await fetchChatMessageList(page, pageSize, friendId);
     setChatMessages((prevMessages) => [...prevMessages, ...chatMessages]);
   };
+
+  useEffect(() => {
+    if (chatRoom) {
+      setChatMessages([]);
+      fetchChatMessages(0, 9999, chatRoom.friendId);
+    }
+  }, [chatRoom, dispatch]);
 
   useEffect(() => {
     setFriendId(chatRoom.friendId);
